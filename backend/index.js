@@ -12,6 +12,7 @@ app.use(express.json());
 const userRoutes = require("./routes/user.route");
 const clientRoutes = require("./routes/client.route");
 const visitRoutes = require("./routes/visit.route");
+const outsationVisitRoutes = require("./routes/outstationVisit.route");
 
 db.sequelize
   .sync({ alter: true })
@@ -25,6 +26,7 @@ db.sequelize
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/client", clientRoutes);
 app.use("/api/v1/visit", visitRoutes);
+app.use("/api/v1/outsation", outsationVisitRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(

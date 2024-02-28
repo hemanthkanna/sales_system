@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const User = require("../model/user.model");
 const Visit = require("../model/visit.model");
+const outstationVisit = require("../model/outstationVisit.model");
 
 exports.createUser = async (req, res) => {
   try {
@@ -42,6 +43,10 @@ exports.getUsers = async (req, res) => {
           model: Visit,
           attributes: ["visitId", "status", "remark"],
         },
+        {
+          model: outstationVisit,
+          attributes: ["outstationVisitId", "status", "remark"],
+        },
       ],
     });
 
@@ -52,6 +57,8 @@ exports.getUsers = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
+      message: error.message,
+      stack: error.stack,
     });
   }
 };
