@@ -20,7 +20,6 @@ const Visit = sequelize.define(
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false,
       isIn: {
         args: [["success", "pending", "failure"]],
         msg: 'Role must be one of the followings "success","pending","failure"',
