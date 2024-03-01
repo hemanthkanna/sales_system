@@ -2,6 +2,64 @@ const { Op } = require("sequelize");
 const User = require("../model/user.model");
 const Visit = require("../model/visit.model");
 const outstationVisit = require("../model/outstationVisit.model");
+passport = require("passport");
+
+exports.login = async (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      return res.status(401).json({
+        message: "Authentication Failed",
+      });
+    }
+
+    req.login(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+
+      const cookieOptions = {
+        maxAge: 24 * 60 * 60 * 1000,
+        htttpOnly: true,
+      };
+
+      res.cookie("userId", user.userId, cookieOptions);
+      res.cookie("userName", user.userName, cookieOptions);
+      return res.status(200).json({
+        message: "LogIn Successfull",
+        user,
+      });
+    });
+  })(req, res, next);
+};
+
+exports.logout = (req, res) => {
+  try {
+    req.logout((err) => {
+      if (err) {
+        return res.status(404).json({
+          message: err.message,
+          stack: err.stack,
+        });
+      }
+    });
+
+    res.clearCookie("userId");
+    res.clearCookie("userName");
+
+    return res.status(200).json({
+      message: "Logout Successfull",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error during logout",
+      error: error.message,
+    });
+  }
+};
 
 exports.createUser = async (req, res) => {
   try {

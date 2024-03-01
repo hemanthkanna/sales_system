@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const Sequelize = require("sequelize");
 const sequelize = require("../config/database");
+const bcrypt = require("bcrypt");
 
 const User = sequelize.define(
   "user",
@@ -16,10 +17,10 @@ const User = sequelize.define(
       validate: {
         len: [2, 16],
       },
-    //   get() {
-    //     const value = this.getDataValue("userName");
-    //     return value.toUpperCase();
-    //   },
+      //   get() {
+      //     const value = this.getDataValue("userName");
+      //     return value.toUpperCase();
+      //   },
     },
     email: {
       type: DataTypes.STRING,
@@ -42,12 +43,12 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       defaultValue: "employee",
       allowNull: false,
-      validate : {
+      validate: {
         isIn: {
-            args: [['admin', 'employee']],
-            msg: 'Role must be either "admin" or "employee".',
-          },
-      }
+          args: [["admin", "employee"]],
+          msg: 'Role must be either "admin" or "employee".',
+        },
+      },
     },
   },
 
@@ -56,5 +57,10 @@ const User = sequelize.define(
     paranoid: true,
   }
 );
+
+User.beforeCreate(async (user, options) => {
+  const hashedPassword = await bcrypt.hash(user.password, 10);
+  user.password = hashedPassword;
+});
 
 module.exports = User;
