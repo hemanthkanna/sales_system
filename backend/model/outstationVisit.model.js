@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const outstationVisit = sequelize.define(
+const OutstationVisit = sequelize.define(
   "outstationVisit",
   {
     outstationVisitId: {
@@ -20,7 +20,6 @@ const outstationVisit = sequelize.define(
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false,
       isIn: {
         args: [["success", "pending", "failure"]],
         msg: 'Role must be one of the followings "success","pending","failure"',
@@ -51,4 +50,4 @@ const outstationVisit = sequelize.define(
   }
 );
 
-module.exports = outstationVisit;
+module.exports = OutstationVisit;

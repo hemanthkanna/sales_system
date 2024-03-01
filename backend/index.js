@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 const userRoutes = require("./routes/user.route");
 const clientRoutes = require("./routes/client.route");
 const visitRoutes = require("./routes/visit.route");
-const outsationVisitRoutes = require("./routes/outstationVisit.route");
+const outstationVisitRoutes = require("./routes/outstationVisit.route");
 const User = require("./model/user.model");
 
 db.sequelize
@@ -87,7 +87,7 @@ passport.deserializeUser(async (userId, done) => {
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/client", clientRoutes);
 app.use("/api/v1/visit", visitRoutes);
-app.use("/api/v1/outsation", outsationVisitRoutes);
+app.use("/api/v1/outstation", outstationVisitRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(

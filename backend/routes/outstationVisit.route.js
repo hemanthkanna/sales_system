@@ -1,8 +1,10 @@
 const express = require("express");
 const {
-  createOutSationVisit,
-} = require("../controllers/outsationVisit.controller");
+  outStationVisitSelfAssign, createOutstationVisit, updateOutstationVisit,
+} = require("../controllers/outstationVisit.controller");
 const router = express.Router();
 
-router.route("/").post(createOutSationVisit);
+router.route("/").post(createOutstationVisit);
+router.route("/self").post(outStationVisitSelfAssign);
+router.route("/").put(updateOutstationVisit);
 module.exports = router;

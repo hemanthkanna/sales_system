@@ -3,7 +3,7 @@ const sequelize = require("../config/database");
 const User = require("./user.model");
 const Visit = require("./visit.model");
 const Client = require("./client.model");
-const outstationVisit = require("./outstationVisit.model");
+const OutstationVisit = require("./outstationVisit.model");
 
 const db = {};
 
@@ -13,7 +13,7 @@ db.sequelize = sequelize;
 db.User = require("./user.model");
 db.Client = require("./client.model");
 db.Visit = require("./visit.model");
-db.outstationVisit = require("./outstationVisit.model");
+db.OutstationVisit = require("./outstationVisit.model");
 
 // Relationships
 
@@ -22,19 +22,19 @@ User.hasMany(Visit, {
 });
 Visit.belongsTo(User);
 
-User.hasMany(outstationVisit, {
+User.hasMany(OutstationVisit, {
   foreignKey: "userId",
 });
-outstationVisit.belongsTo(User);
+OutstationVisit.belongsTo(User);
 
 Client.hasMany(Visit, {
   foreignKey: "clientId",
 });
 Visit.belongsTo(Client);
 
-Client.hasMany(outstationVisit, {
+Client.hasMany(OutstationVisit, {
   foreignKey: "clientId",
 });
-outstationVisit.belongsTo(Client);
+OutstationVisit.belongsTo(Client);
 
 module.exports = db;

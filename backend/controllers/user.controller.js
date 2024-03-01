@@ -1,7 +1,7 @@
 const { Op } = require("sequelize");
 const User = require("../model/user.model");
 const Visit = require("../model/visit.model");
-const outstationVisit = require("../model/outstationVisit.model");
+const OutstationVisit = require("../model/outstationVisit.model");
 passport = require("passport");
 
 exports.login = async (req, res, next) => {
@@ -102,7 +102,7 @@ exports.getUsers = async (req, res) => {
           attributes: ["visitId", "status", "remark"],
         },
         {
-          model: outstationVisit,
+          model: OutstationVisit,
           attributes: ["outstationVisitId", "status", "remark"],
         },
       ],
